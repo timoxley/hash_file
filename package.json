@@ -1,17 +1,17 @@
 {
-  "name": "sha1_file",
-  "description": "A simple utility for getting the SHA1 hash of a file",
-  "version": "0.0.4",
+  "name": "hash_file",
+  "description": "A simple utility for getting a hash of a file",
+  "version": "0.0.5",
   "tags": [
-       "sha1",
-       "file"
-   ],  
+    "sha1",
+    "file"
+  ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/dotmaster/sha1-file.git"
+    "url": "git://github.com/secoif/hash_file.git"
   },
-  "author": "Gregor Schwab <greg@synaptic-labs.net> (www.synaptic-labs.net)",
-  "main": "sha1_file.js",
+  "author": "Tim Oxley <secoif@gmail.com> (http://unit.io)",
+  "main": "hash_file.js",
   "directories": {
     "lib": "."
   },
@@ -19,6 +19,11 @@
     "node": ">=0.4.0"
   },
   "scripts": {
-    "test": "mocha test/test.js"
+    "test": "mocha --timeout 10000 ./test/test.js"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "async": "~0.1.15"
   }
 }
