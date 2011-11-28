@@ -1,23 +1,23 @@
 Hash File: A simple utility for getting the hash of a file
 ============================================
 
-This module is a super simple, super fast (using file stream) utility for getting the SHA1 hash of a file 
+This module is a super simple utility for getting the hash of a file 
 
 ### Supported Hash Types
 
-* md5
-* sha1
-* sha256
+* MD5
+* SHA1
+* SHA256
 
 ## Installation
 ```
-  npm install hash_file
+npm install hash_file
 ```
 
 or
 
 ```
-  git clone https://github.com/secoif/hash_file
+git clone https://github.com/secoif/hash_file
 ```
 
 ## Usage 
@@ -25,8 +25,18 @@ or
 ```javascript
 var hash_file = require('hash_file')
 
+// get md5
 hash_file('./README.md', 'md5', function(err, hash) {
-  console.log(hash)
+  console.log('md5: ', hash)
+})
+
+// get sha1 
+hash_file('./README.md', 'sha1', function(err, hash) {
+  console.log('sha1: ', hash)
+})
+// get sha256 
+hash_file('./README.md', 'sha256', function(err, hash) {
+  console.log('sha256: ', hash)
 })
 ```
 
@@ -39,7 +49,7 @@ npm test
 
 ## Credits
 
-Original Module Author - Gregor Schwab &lt;greg@synaptic-labs.net&gt; ([dotmaster](http://github.com/dotmaster))
+Original Module Author - Gregor Schwab greg@synaptic-labs.net ([dotmaster](http://github.com/dotmaster))
 
 ## License 
 
