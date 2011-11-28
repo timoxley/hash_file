@@ -2,8 +2,11 @@
   "name": "hash_file",
   "description": "A simple utility for getting a hash of a file",
   "version": "0.0.5",
-  "tags": [
+  "keywords": [
+    "hash",
+    "md5",
     "sha1",
+    "crypto",
     "file"
   ],
   "repository": {
