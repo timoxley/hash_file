@@ -22,7 +22,7 @@ var sha1_file = function(fileName, callback) {
 		}
     fs.open(fileName, 'r', 666 , function(err, fd) {
   		if (err) {
-  			return cb(err)
+  			return callback(err)
   		}
 
 		  var read_len = 1024 * 1024 || stats.blksize, offset = 0
