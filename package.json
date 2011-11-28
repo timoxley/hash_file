@@ -1,7 +1,7 @@
 {
   "name": "hash_file",
   "description": "A simple utility for getting a hash of a file",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "keywords": [
     "hash",
     "md5",
