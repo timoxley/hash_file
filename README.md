@@ -25,8 +25,8 @@ or
 ```javascript
 var hash_file = require('hash_file')
 
-hash_file('../README.md', 'md5', function(err, sha1){
-  console.log(sha1)
+hash_file('./README.md', 'md5', function(err, hash) {
+  console.log(hash)
 })
 ```
 
@@ -39,7 +39,7 @@ npm test
 
 ## Credits
 
-- Gregor Schwab &lt;greg@synaptic-labs.net&gt; ([dotmaster](http://github.com/dotmaster))
+Original Module Author - Gregor Schwab &lt;greg@synaptic-labs.net&gt; ([dotmaster](http://github.com/dotmaster))
 
 ## License 
 
