@@ -4,26 +4,32 @@ SHA1 File: A simple utility for getting the SHA1 of a file
 This module is a super simple, super fast (using file stream) utility for getting the SHA1 hash of a file 
 
 
-## How to use
-
-To install and run do the following
-
-  git clone https://github.com/dotmaster/sha1_file
-or
+## Installation
+```
   npm install sha1_file
+```
 
-### Implementing it on your project
+or
 
-In Javascript:
+```
+  git clone https://github.com/dotmaster/sha1_file
+```
 
-     var sha1_file = require('path/to/sha1_file'),
- 
-     //then somewhere in your code
- 
-     sha1_file('../README.md', function(sha1){
-       require('util').log(sha1)
-     })
+## Usage 
 
+```javascript
+var sha1_file = require('sha1_file')
+
+sha1_file('../README.md', function(err, sha1){
+  console.log(sha1)
+})
+```
+
+## Running the tests
+
+```shell
+npm test
+```
 
 ## Credits
 
