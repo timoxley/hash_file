@@ -17,11 +17,31 @@ describe('hash_file module', function(){
   after(function(done){
     fs.unlink(filePath, done)
   })
+  it('should generate a md4 hash without error', function(done){
+    console.time('md4')
+    hash_file(filePath, 'md4', function(err, hash) {
+      assert.ok(!err, err)
+      console.timeEnd('md4')
+      assert.ok(hash)
+      assert.equal(32, hash.length)
+      done()
+    })
+  })
+  it('should generate the same md4 hash multiple times for the same file', function(done) {
+    hash_file(filePath, 'md4', function(err, hash_first) {
+      assert.ok(!err, err)
+      hash_file(filePath, 'md4', function(err, hash_second) {
+        assert.ok(!err, err)
+        assert.equal(hash_first, hash_second)
+        done()
+      })
+    })
+  })
   it('should generate a md5 hash without error', function(done){
     console.time('md5')
     hash_file(filePath, 'md5', function(err, hash) {
-      console.timeEnd('md5')
       assert.ok(!err, err)
+      console.timeEnd('md5')
       assert.ok(hash)
       assert.equal(32, hash.length)
       done()
@@ -29,7 +49,9 @@ describe('hash_file module', function(){
   })
   it('should generate the same md5 hash multiple times for the same file', function(done) {
     hash_file(filePath, 'md5', function(err, hash_first) {
+      assert.ok(!err, err)
       hash_file(filePath, 'md5', function(err, hash_second) {
+        assert.ok(!err, err)
         assert.equal(hash_first, hash_second)
         done()
       })
@@ -38,8 +60,8 @@ describe('hash_file module', function(){
   it('should generate a sha1 hash without error', function(done){
     console.time('sha1')
     hash_file(filePath, 'sha1', function(err, hash) {
-      console.timeEnd('sha1')
       assert.ok(!err, err)
+      console.timeEnd('sha1')
       assert.ok(hash)
       assert.equal(40, hash.length)
       done()
@@ -47,7 +69,9 @@ describe('hash_file module', function(){
   })
   it('should generate the same sha1 hash multiple times for the same file', function(done) {
     hash_file(filePath, 'sha1', function(err, hash_first) {
+      assert.ok(!err, err)
       hash_file(filePath, 'sha1', function(err, hash_second) {
+        assert.ok(!err, err)
         assert.equal(hash_first, hash_second)
         done()
       })
@@ -65,10 +89,24 @@ describe('hash_file module', function(){
   })
   it('should generate the same sha256 hash multiple times for the same file', function(done) {
     hash_file(filePath, 'sha256', function(err, hash_first) {
+      assert.ok(!err, err)
       hash_file(filePath, 'sha256', function(err, hash_second) {
+        assert.ok(!err, err)
         assert.equal(hash_first, hash_second)
         done()
       })
+    })
+  })
+  it('should generate an error if trying to read a  non-existant file', function(done) {
+    hash_file('garbagepathyeahman', 'sha256', function(err, hash_first) {
+      assert.ok(err)
+      done()
+    })
+  })
+  it('should generate an error if trying to use a non-existant hash method', function(done) {
+    hash_file(filePath, 'garbage', function(err, hash_first) {
+      assert.ok(err)
+      done()
     })
   })
 })

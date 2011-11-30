@@ -5,6 +5,7 @@ This module is a super simple utility for getting the hash of a file
 
 ### Supported Hash Types
 
+* MD4
 * MD5
 * SHA1
 * SHA256
