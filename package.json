@@ -1,7 +1,7 @@
 {
   "name": "hash_file",
   "description": "A simple utility for getting a hash of a file",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "keywords": [
     "hash",
     "md5",
@@ -24,8 +24,7 @@
   "scripts": {
     "test": "mocha --timeout 10000 ./test/test.js"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "async": "~0.1.15"
   }
