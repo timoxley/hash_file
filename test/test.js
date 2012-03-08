@@ -7,12 +7,16 @@ var hash_file = require('../hash_file.js'),
     async = require('async'),
     exec = require('child_process').exec
 
-var dummyfileMegs = 20
+var dummyfileMegs = 50
 var filePath = path.join(process.cwd, 'test', 'testData')
 
 describe('hash_file module', function(){
-  beforeEach(function(done){
-    exec('dd if=/dev/urandom of='+ filePath +' bs=1m count='+dummyfileMegs, done)
+  before(function(done){
+    console.time('generate dummy file')
+    exec('dd if=/dev/urandom of='+ filePath +' bs=1m count='+dummyfileMegs, function() {
+      console.timeEnd('generate dummy file')
+      done()
+    })
   })
   after(function(done){
     fs.unlink(filePath, done)
@@ -21,8 +25,8 @@ describe('hash_file module', function(){
     it('should generate a md4 hash without error', function(done){
       console.time('md4')
       hash_file(filePath, 'md4', function(err, hash) {
-        assert.ok(!err, err)
         console.timeEnd('md4')
+        assert.ok(!err, err)
         assert.ok(hash)
         assert.equal(32, hash.length)
         done()
@@ -40,12 +44,14 @@ describe('hash_file module', function(){
     })
     it('should generate a different hash for a modified file', function(done) {
       hash_file(filePath, 'md4', function(err, hash_first) {
-        fs.writeFileSync(filePath, 'some data')
         assert.ok(!err, err)
-        hash_file(filePath, 'md4', function(err, hash_second) {
+        fs.writeFile(filePath, 'md4 data', function(err) {
           assert.ok(!err, err)
-          assert.notEqual(hash_first, hash_second)
-          done()
+          hash_file(filePath, 'md4', function(err, hash_second) {
+            assert.ok(!err, err)
+            assert.notEqual(hash_first, hash_second)
+            done()
+          })
         })
       })
     })
@@ -55,16 +61,18 @@ describe('hash_file module', function(){
       console.time('md5')
       hash_file(filePath, 'md5', function(err, hash) {
         assert.ok(!err, err)
-        console.timeEnd('md5')
         assert.ok(hash)
         assert.equal(32, hash.length)
+        console.timeEnd('md5')
         done()
       })
     })
     it('should generate the same md5 hash multiple times for the same file', function(done) {
       hash_file(filePath, 'md5', function(err, hash_first) {
         assert.ok(!err, err)
+        console.time('md5')
         hash_file(filePath, 'md5', function(err, hash_second) {
+          console.timeEnd('md5')
           assert.ok(!err, err)
           assert.equal(hash_first, hash_second)
           done()
@@ -73,12 +81,14 @@ describe('hash_file module', function(){
     })
     it('should generate a different hash for a modified file', function(done) {
       hash_file(filePath, 'md5', function(err, hash_first) {
-        fs.writeFileSync(filePath, 'some data')
         assert.ok(!err, err)
-        hash_file(filePath, 'md5', function(err, hash_second) {
+        fs.writeFile(filePath, 'md5 data', function(err) {
           assert.ok(!err, err)
-          assert.notEqual(hash_first, hash_second)
-          done()
+          hash_file(filePath, 'md5', function(err, hash_second) {
+            assert.ok(!err, err)
+            assert.notEqual(hash_first, hash_second)
+            done()
+          })
         })
       })
     })
@@ -87,8 +97,8 @@ describe('hash_file module', function(){
     it('should generate a sha1 hash without error', function(done){
       console.time('sha1')
       hash_file(filePath, 'sha1', function(err, hash) {
-        assert.ok(!err, err)
         console.timeEnd('sha1')
+        assert.ok(!err, err)
         assert.ok(hash)
         assert.equal(40, hash.length)
         done()
@@ -106,12 +116,14 @@ describe('hash_file module', function(){
     })
     it('should generate a different hash for a modified file', function(done) {
       hash_file(filePath, 'sha1', function(err, hash_first) {
-        fs.writeFileSync(filePath, 'some data')
         assert.ok(!err, err)
-        hash_file(filePath, 'sha1', function(err, hash_second) {
+        fs.writeFile(filePath, 'sha1 data', function(err) {
           assert.ok(!err, err)
-          assert.notEqual(hash_first, hash_second)
-          done()
+          hash_file(filePath, 'sha1', function(err, hash_second) {
+            assert.ok(!err, err)
+            assert.notEqual(hash_first, hash_second)
+            done()
+          })
         })
       })
     })
@@ -139,12 +151,14 @@ describe('hash_file module', function(){
     })
     it('should generate a different hash for a modified file', function(done) {
       hash_file(filePath, 'sha256', function(err, hash_first) {
-        fs.writeFileSync(filePath, 'some data')
         assert.ok(!err, err)
-        hash_file(filePath, 'sha256', function(err, hash_second) {
+        fs.writeFile(filePath, 'sha256 data', function() {
           assert.ok(!err, err)
-          assert.notEqual(hash_first, hash_second)
-          done()
+          hash_file(filePath, 'sha256', function(err, hash_second) {
+            assert.ok(!err, err)
+            assert.notEqual(hash_first, hash_second)
+            done()
+          })
         })
       })
     })
@@ -162,5 +176,4 @@ describe('hash_file module', function(){
     })
   })
 })
-
 

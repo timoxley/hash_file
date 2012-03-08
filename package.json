@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/secoif/hash_file.git"
+    "url": "git://github.com/timoxley/hash_file.git"
   },
   "author": "Tim Oxley <secoif@gmail.com> (http://unit.io)",
   "main": "hash_file.js",
@@ -22,10 +22,14 @@
     "node": ">=0.4.0"
   },
   "scripts": {
-    "test": "mocha --timeout 10000 ./test/test.js"
+    "test": "./node_modules/.bin/mocha -t 60000 ./test/test.js" 
   },
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
-    "async": "~0.1.15"
-  }
+    "async": "~0.1.15",
+    "mocha": "~0.14.0"
+  },
+  "optionalDependencies": {},
+  "homepage": "https://github.com/timoxley/hash_file"
 }
