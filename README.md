@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/timoxley/hash_file.png)](http://travis-ci.org/timoxley/hash_file)
 Hash File: A simple utility for getting the hash of a file
 ============================================
 
