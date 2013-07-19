@@ -47,6 +47,8 @@ var buf = crypto.randomBytes(1024)
 hash_file(buf, 'md5', function (err, hash) {
   console.log('md5:', hash)
 })
+// or simply:
+console.log('md5:', hash_file(buf, 'md5')
 ```
 
 ## Running the tests

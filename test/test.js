@@ -188,12 +188,15 @@ describe('hash_file module', function(){
             function () { return 'aaaaaaaaaa' }).join('')),
           expectedMd5 = '302d3a0c8e319eaa95b059b346de1d1d'
 
-      hash_file(blob, 'md5', function(err, hash) {
+      var ret = hash_file(blob, 'md5', function(err, hash) {
         console.timeEnd('md5')
         assert.ok(!err, err)
         assert.ok(hash)
         assert.equal(expectedMd5, hash)
-        done()
+        process.nextTick(function () {
+          assert.equal(expectedMd5, ret) // also available on the return, cause we can
+          done()
+        })
       })
     })
   })
