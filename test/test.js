@@ -8,7 +8,7 @@ var hash_file = require('../hash_file.js'),
     exec = require('child_process').exec
 
 var dummyfileMegs = 50
-var filePath = path.join(process.cwd, 'test', 'testData')
+var filePath = path.join(process.cwd(), 'test', 'testData')
 
 describe('hash_file module', function(){
   before(function(done){
