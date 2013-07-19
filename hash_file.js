@@ -14,11 +14,30 @@ var hash_file = function(fileName, method, callback) {
     case 'sha256':
       break
     default:
-      return callback(new Error('unsupported method:' + method))
+      var err = new Error('unsupported method:' + method)
+      if (callback)
+        return callback(err)
+      throw err
   }
 
 
 var shasum = require('crypto').createHash(method)
+
+function end () {
+  var digest = shasum.digest('hex')
+  if (callback)
+    callback(null, digest)
+  return digest
+}
+
+// passed in a Buffer, not a filename
+if (Buffer.isBuffer(fileName)) {
+  shasum.update(fileName)
+  return end()
+}
+
+if (typeof callback != 'function')
+  throw new Error('must supply a callback function')
 
 var stream = fs.ReadStream(fileName, {
   bufferSize: 4024 * 1024
@@ -32,10 +51,7 @@ stream.on('data', function(data) {
     callback(err)
   })
 
-  stream.on('end', function() {
-    var digest = shasum.digest('hex')
-    callback(null, digest)
-  })
+  stream.on('end', end)
 }
 
 module.exports = hash_file
