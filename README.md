@@ -1,6 +1,5 @@
 [![build status](https://secure.travis-ci.org/timoxley/hash_file.png)](http://travis-ci.org/timoxley/hash_file)
-Hash File: A simple utility for getting the hash of a file or Buffer
-============================================
+# Hash File: A simple utility for getting the hash of a file or Buffer
 
 This module is a super simple utility for getting the hash of a file or Buffer
 
@@ -14,12 +13,6 @@ This module is a super simple utility for getting the hash of a file or Buffer
 ## Installation
 ```
 npm install hash_file
-```
-
-or
-
-```
-git clone https://github.com/secoif/hash_file
 ```
 
 ## Usage 
@@ -60,7 +53,7 @@ npm test
 
 ## Credits
 
-Original Module Author - Gregor Schwab greg@synaptic-labs.net ([dotmaster](http://github.com/dotmaster))
+Code adapted from Gregor Schwab greg@synaptic-labs.net ([dotmaster](http://github.com/dotmaster))
 
 ## License 
 
