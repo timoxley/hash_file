@@ -5,15 +5,20 @@ var hash_file = require('../hash_file.js'),
     path = require('path'),
     assert = require('assert'),
     async = require('async'),
-    exec = require('child_process').exec
+    exec = require('child_process').exec,
+    crypto = require('crypto')
 
 var dummyfileMegs = 50
-var filePath = path.join(process.cwd, 'test', 'testData')
+var filePath = path.join(__dirname, 'testData')
 
 describe('hash_file module', function(){
   before(function(done){
     console.time('generate dummy file')
-    exec('dd if=/dev/urandom of='+ filePath +' bs=1m count='+dummyfileMegs, function() {
+    var out = fs.createWriteStream(filePath)
+    for (var i = 0; i < dummyfileMegs; i++) {
+      out.write(crypto.randomBytes(1024 * 1024))
+    }
+    out.close(function () {
       console.timeEnd('generate dummy file')
       done()
     })
@@ -175,5 +180,24 @@ describe('hash_file module', function(){
       done()
     })
   })
-})
 
+  describe('hash a buffer', function() {
+    it('should generate a md5 hash on a buffer object', function(done){
+      console.time('md4')
+      var blob = new Buffer(Array.apply(null, Array(1024 * 10)).map(
+            function () { return 'aaaaaaaaaa' }).join('')),
+          expectedMd5 = '302d3a0c8e319eaa95b059b346de1d1d'
+
+      var ret = hash_file(blob, 'md5', function(err, hash) {
+        console.timeEnd('md5')
+        assert.ok(!err, err)
+        assert.ok(hash)
+        assert.equal(expectedMd5, hash)
+        process.nextTick(function () {
+          assert.equal(expectedMd5, ret) // also available on the return, cause we can
+          done()
+        })
+      })
+    })
+  })
+})
