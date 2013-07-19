@@ -18,7 +18,7 @@ describe('hash_file module', function(){
     for (var i = 0; i < dummyfileMegs; i++) {
       out.write(crypto.randomBytes(1024 * 1024))
     }
-    out.close(function () {
+    out.end(function () {
       console.timeEnd('generate dummy file')
       done()
     })
