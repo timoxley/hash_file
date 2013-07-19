@@ -1,8 +1,8 @@
 [![build status](https://secure.travis-ci.org/timoxley/hash_file.png)](http://travis-ci.org/timoxley/hash_file)
-Hash File: A simple utility for getting the hash of a file
+Hash File: A simple utility for getting the hash of a file or Buffer
 ============================================
 
-This module is a super simple utility for getting the hash of a file 
+This module is a super simple utility for getting the hash of a file or Buffer
 
 ### Supported Hash Types
 
@@ -24,27 +24,34 @@ git clone https://github.com/secoif/hash_file
 
 ## Usage 
 
-```javascript
+```js
 var hash_file = require('hash_file')
 
 // get md5
 hash_file('./README.md', 'md5', function(err, hash) {
-  console.log('md5: ', hash)
+  console.log('md5:', hash)
 })
 
 // get sha1 
 hash_file('./README.md', 'sha1', function(err, hash) {
-  console.log('sha1: ', hash)
+  console.log('sha1:', hash)
 })
+
 // get sha256 
 hash_file('./README.md', 'sha256', function(err, hash) {
-  console.log('sha256: ', hash)
+  console.log('sha256:', hash)
+})
+
+// on a Buffer
+var buf = crypto.randomBytes(1024)
+hash_file(buf, 'md5', function (err, hash) {
+  console.log('md5:', hash)
 })
 ```
 
 ## Running the tests
 
-```shell
+```sh
 npm install --dev
 npm test
 ```

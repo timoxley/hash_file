@@ -20,6 +20,17 @@ var hash_file = function(fileName, method, callback) {
 
 var shasum = require('crypto').createHash(method)
 
+function end () {
+  var digest = shasum.digest('hex')
+  callback(null, digest)
+}
+
+// passed in a Buffer, not a filename
+if (Buffer.isBuffer(fileName)) {
+  shasum.update(fileName)
+  return end()
+}
+
 var stream = fs.ReadStream(fileName, {
   bufferSize: 4024 * 1024
 })
@@ -32,10 +43,7 @@ stream.on('data', function(data) {
     callback(err)
   })
 
-  stream.on('end', function() {
-    var digest = shasum.digest('hex')
-    callback(null, digest)
-  })
+  stream.on('end', end)
 }
 
 module.exports = hash_file
