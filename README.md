@@ -1,7 +1,7 @@
 [![build status](https://secure.travis-ci.org/timoxley/hash_file.png)](http://travis-ci.org/timoxley/hash_file)
-# Hash File: A simple utility for getting the hash of a file or Buffer
+# Hash File
 
-This module is a super simple utility for getting the hash of a file or Buffer
+A simple utility for getting the hash of a file or Buffer.
 
 ### Supported Hash Types
 
