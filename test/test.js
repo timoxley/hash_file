@@ -17,7 +17,7 @@ var dummyfileMegs = 2
 describe('hash_file module', function(){
   var filePath
   beforeEach(function(done){
-    filePath = path.join(os.tmpdir() || '/tmp', 'hashfile-test-' + Math.random())
+    filePath = path.join(os.tmpdir && os.tmpdir() || '/tmp', 'hashfile-test-' + Math.random())
     console.time('generate dummy file')
     var out = fs.createWriteStream(filePath)
     for (var i = 0; i < dummyfileMegs; i++) {
