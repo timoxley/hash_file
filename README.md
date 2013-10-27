@@ -37,9 +37,11 @@ hash_file('./README.md', 'sha256', function(err, hash) {
 
 // on a Buffer
 var buf = crypto.randomBytes(1024)
+
 hash_file(buf, 'md5', function (err, hash) {
   console.log('md5:', hash)
 })
+
 // or simply:
 console.log('md5:', hash_file(buf, 'md5'))
 ```
@@ -47,13 +49,13 @@ console.log('md5:', hash_file(buf, 'md5'))
 ## Running the tests
 
 ```sh
-npm install --dev
-npm test
+> npm install
+> npm test
 ```
 
 ## Credits
 
-Code adapted from Gregor Schwab greg@synaptic-labs.net ([dotmaster](http://github.com/dotmaster))
+Code originally adapted from Gregor Schwab greg@synaptic-labs.net ([dotmaster](http://github.com/dotmaster))
 
 ## License 
 

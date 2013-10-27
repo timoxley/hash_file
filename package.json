@@ -26,8 +26,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "async": "~0.1.15",
-    "mocha": "~0.14.0"
+    "async": "~0.2.9",
+    "mocha": "~1.13.0"
   },
   "optionalDependencies": {},
   "homepage": "https://github.com/timoxley/hash_file"

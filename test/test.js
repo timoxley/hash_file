@@ -1,18 +1,23 @@
 'use strict'
 
-var hash_file = require('../hash_file.js'),
-    fs = require('fs'),
-    path = require('path'),
-    assert = require('assert'),
-    async = require('async'),
-    exec = require('child_process').exec,
-    crypto = require('crypto')
 
-var dummyfileMegs = 50
-var filePath = path.join(__dirname, 'testData')
+var os = require('os')
+var fs = require('fs')
+var path = require('path')
+var crypto = require('crypto')
+var exec = require('child_process').exec
+
+var assert = require('assert')
+var async = require('async')
+
+var hash_file = require('../hash_file.js')
+
+var dummyfileMegs = 2
 
 describe('hash_file module', function(){
-  before(function(done){
+  var filePath
+  beforeEach(function(done){
+    filePath = path.join(os.tmpdir(), 'hashfile-test-' + Math.random())
     console.time('generate dummy file')
     var out = fs.createWriteStream(filePath)
     for (var i = 0; i < dummyfileMegs; i++) {
@@ -23,9 +28,11 @@ describe('hash_file module', function(){
       done()
     })
   })
-  after(function(done){
+
+  afterEach(function(done) {
     fs.unlink(filePath, done)
   })
+
   describe('md4', function() {
     it('should generate a md4 hash without error', function(done){
       console.time('md4')
@@ -193,6 +200,8 @@ describe('hash_file module', function(){
         assert.ok(!err, err)
         assert.ok(hash)
         assert.equal(expectedMd5, hash)
+        // use next tick so we can compare the return value
+        // of the hash_file call.
         process.nextTick(function () {
           assert.equal(expectedMd5, ret) // also available on the return, cause we can
           done()
